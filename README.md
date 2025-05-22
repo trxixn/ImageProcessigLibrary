@@ -47,6 +47,91 @@ cmake ..
 make
 ```
 
+## Using as a Library
+
+### Method 1: Include Source Files
+The simplest way to use this library is to include the source files directly in your project:
+
+1. Copy the `src` directory to your project
+2. Add the following to your CMakeLists.txt:
+```cmake
+add_library(image_processing
+    src/Image.cpp
+    src/BrightnessContrast.cpp
+    src/GammaCorrection.cpp
+    src/Convolution.cpp
+    src/Drawing.cpp
+)
+
+target_include_directories(image_processing PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
+```
+
+3. Link it to your project:
+```cmake
+target_link_libraries(your_project PRIVATE image_processing)
+```
+
+4. Include the headers in your code:
+```cpp
+#include "Image.h"
+#include "BrightnessContrast.h"
+// ... other headers as needed
+```
+
+### Method 2: Build as Shared Library
+To build and install as a shared library:
+
+1. Build with shared library option:
+```bash
+mkdir build && cd build
+cmake -DBUILD_SHARED_LIBS=ON ..
+make
+sudo make install
+```
+
+2. In your project's CMakeLists.txt:
+```cmake
+find_package(image_processing REQUIRED)
+target_link_libraries(your_project PRIVATE image_processing)
+```
+
+### Example Usage
+```cpp
+#include "Image.h"
+#include "BrightnessContrast.h"
+
+int main() {
+    // Create and load an image
+    Image img;
+    img.load("input.pgm");
+    
+    // Create a processor
+    BrightnessContrast processor(1.2f, 10.0f);
+    
+    // Process the image
+    Image result;
+    processor.process(img, result);
+    
+    // Save the result
+    result.save("output.pgm");
+    return 0;
+}
+```
+
+### Creating Custom Processors
+You can create your own image processors by inheriting from the `ImageProcessing` base class:
+
+```cpp
+#include "ImageProcessing.h"
+
+class CustomProcessor : public ImageProcessing {
+public:
+    void process(const Image& src, Image& dst) override {
+        // Your custom processing logic here
+    }
+};
+```
+
 ## Test Images
 
 For testing the library, you can use PGM (Portable Gray Map) files. A collection of test images is available at:
@@ -56,30 +141,6 @@ Some recommended test images:
 - `lena.pgm` (512x512) - Standard test image
 - `baboon.pgm` (512x512) - Good for testing detail preservation
 - `pepper.pgm` (256x256) - Good for testing contrast adjustments
-
-## Usage
-
-Here's a simple example showing how to adjust brightness and contrast:
-
-```cpp
-#include "Image.h"
-#include "BrightnessContrast.h"
-
-int main() {
-    // Load an image
-    Image img;
-    img.load("input.pgm");
-    
-    // Adjust brightness and contrast
-    BrightnessContrast processor(1.2f, 10.0f);  // alpha=1.2, beta=10
-    Image result;
-    processor.process(img, result);
-    
-    // Save the result
-    result.save("output.pgm");
-    return 0;
-}
-```
 
 ## API Overview
 
