@@ -47,6 +47,16 @@ cmake ..
 make
 ```
 
+## Test Images
+
+For testing the library, you can use PGM (Portable Gray Map) files. A collection of test images is available at:
+[FSU PGM Image Database](https://people.sc.fsu.edu/~jburkardt/data/pgma/pgma.html)
+
+Some recommended test images:
+- `lena.pgm` (512x512) - Standard test image
+- `baboon.pgm` (512x512) - Good for testing detail preservation
+- `pepper.pgm` (256x256) - Good for testing contrast adjustments
+
 ## Usage
 
 Here's a simple example showing how to adjust brightness and contrast:
@@ -58,7 +68,7 @@ Here's a simple example showing how to adjust brightness and contrast:
 int main() {
     // Load an image
     Image img;
-    img.load("input.jpg");
+    img.load("input.pgm");
     
     // Adjust brightness and contrast
     BrightnessContrast processor(1.2f, 10.0f);  // alpha=1.2, beta=10
@@ -66,7 +76,7 @@ int main() {
     processor.process(img, result);
     
     // Save the result
-    result.save("output.jpg");
+    result.save("output.pgm");
     return 0;
 }
 ```
