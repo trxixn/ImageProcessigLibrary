@@ -3,6 +3,7 @@
 #include "GammaCorrection.h"
 #include "Convolution.h"
 #include "Drawing.h"
+#include "SobelFilter.h"
 #include <iostream>
 #include <vector>
 
@@ -24,13 +25,18 @@ int main(int argc, char** argv) {
         // Create a copy for processing
         Image processed = img;
 
+        // Apply Sobel filter for edge detection
+        SobelFilter sobel;
+        sobel.process(img, processed);
+        processed.save("sobel_edges.pgm");
+
         // Apply brightness and contrast
         BrightnessContrast bc(1.5f, 30.0f); // Increase contrast and brightness
         bc.process(img, processed);
         processed.save("brightness_contrast.pgm");
 
         // Apply gamma correction
-        GammaCorrection gc(0.5f); // Darken the image
+        GammaCorrection gc(1.f); // Darken the image
         gc.process(img, processed);
         processed.save("gamma_correction.pgm");
 

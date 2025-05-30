@@ -5,6 +5,7 @@
 
 class ImageProcessing {
 public:
+    ImageProcessing() = default;
     /**
      * @brief Virtual destructor
      */
@@ -12,10 +13,10 @@ public:
 
     /**
      * @brief Process the image
-     * @param src Source image
-     * @param dst Destination image
+     * @param input Source image
+     * @param output Destination image
      */
-    virtual void process(const Image& src, Image& dst) = 0;
+    virtual bool process(const Image& input, Image& output) = 0;
 };
 
 #endif // IMAGE_PROCESSING_H 

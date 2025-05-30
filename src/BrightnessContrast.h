@@ -17,7 +17,7 @@ public:
      * @param src Source image
      * @param dst Destination image
      */
-    void process(const Image& src, Image& dst) override;
+    bool process(const Image& src, Image& dst) override;
 
 private:
     float m_alpha; // contrast
