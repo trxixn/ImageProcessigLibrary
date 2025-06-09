@@ -5,11 +5,11 @@
 
 class ImageProcessing {
 public:
-    ImageProcessing() = default;
+    ImageProcessing();
     /**
      * @brief Virtual destructor
      */
-    virtual ~ImageProcessing() = default;
+    virtual ~ImageProcessing();
 
     /**
      * @brief Process the image

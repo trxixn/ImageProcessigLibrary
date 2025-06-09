@@ -18,6 +18,8 @@ public:
      */
     bool process(const Image& src, Image& dst) override;
 
+    ~GammaCorrection();
+
 private:
     float m_gamma;
 };

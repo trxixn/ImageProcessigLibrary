@@ -2,7 +2,6 @@
 #include <cmath>
 
 SobelFilter::SobelFilter() : ImageProcessing() {
-    // Initialize Sobel kernels
     m_kernelSize = 3;
     m_kernel = new float*[m_kernelSize];
     m_verticalKernel = new float*[m_kernelSize];
@@ -11,12 +10,10 @@ SobelFilter::SobelFilter() : ImageProcessing() {
         m_verticalKernel[i] = new float[m_kernelSize];
     }
 
-    // Sobel horizontal kernel
     m_kernel[0][0] = -1; m_kernel[0][1] = 0; m_kernel[0][2] = 1;
     m_kernel[1][0] = -2; m_kernel[1][1] = 0; m_kernel[1][2] = 2;
     m_kernel[2][0] = -1; m_kernel[2][1] = 0; m_kernel[2][2] = 1;
 
-    // Sobel vertical kernel (90-degree rotation of horizontal kernel)
     m_verticalKernel[0][0] = -1; m_verticalKernel[0][1] = -2; m_verticalKernel[0][2] = -1;
     m_verticalKernel[1][0] = 0;  m_verticalKernel[1][1] = 0;  m_verticalKernel[1][2] = 0;
     m_verticalKernel[2][0] = 1;  m_verticalKernel[2][1] = 2;  m_verticalKernel[2][2] = 1;
@@ -39,11 +36,9 @@ bool SobelFilter::process(const Image& input, Image& output) {
         return false;
     }
 
-    // Create temporary images for horizontal and vertical edges
     Image horizontalEdges(input.width(), input.height());
     Image verticalEdges(input.width(), input.height());
 
-    // Apply horizontal Sobel
     for (unsigned int y = 0; y < input.height(); y++) {
         for (unsigned int x = 0; x < input.width(); x++) {
             float sum = 0.0f;
@@ -60,7 +55,6 @@ bool SobelFilter::process(const Image& input, Image& output) {
         }
     }
 
-    // Apply vertical Sobel
     for (unsigned int y = 0; y < input.height(); y++) {
         for (unsigned int x = 0; x < input.width(); x++) {
             float sum = 0.0f;
@@ -77,7 +71,6 @@ bool SobelFilter::process(const Image& input, Image& output) {
         }
     }
 
-    // Combine horizontal and vertical edges
     for (unsigned int y = 0; y < input.height(); y++) {
         for (unsigned int x = 0; x < input.width(); x++) {
             float h = horizontalEdges.at(x, y);

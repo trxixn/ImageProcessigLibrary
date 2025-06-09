@@ -8,11 +8,14 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(SOURCES
     src/main.cpp
     src/Image.cpp
+    src/ImageProcessing.cpp
     src/BrightnessContrast.cpp
     src/GammaCorrection.cpp
     src/Convolution.cpp
     src/Drawing.cpp
     src/SobelFilter.cpp
+    src/GaussianBlur.cpp
+    src/MeanBlur.cpp
 )
 
 # Add header files
@@ -24,6 +27,8 @@ set(HEADERS
     src/Convolution.h
     src/Drawing.h
     src/SobelFilter.h
+    src/GaussianBlur.h
+    src/MeanBlur.h
 )
 
 # Create executable

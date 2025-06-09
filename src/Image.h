@@ -45,7 +45,7 @@ public:
      * @param imagePath Path where to save the image
      * @return true if saving was successful, false otherwise
      */
-    bool save(const std::string& imagePath);
+    bool save(const std::string& imagePath) const;
 
     /**
      * @brief Assignment operator
@@ -161,14 +161,14 @@ public:
      * @param y Y coordinate
      * @return Pixel value
      */
-    unsigned char at(unsigned int x, unsigned int y) const;
+    const unsigned char& at(unsigned int x, unsigned int y) const;
 
     /**
      * @brief Get pixel value at specified point
      * @param pt Point containing coordinates
      * @return Pixel value
      */
-    unsigned char at(Point pt) const;
+    const unsigned char& at(Point pt) const;
 
     /**
      * @brief Get pointer to row data
@@ -207,7 +207,7 @@ public:
     static Image ones(unsigned int width, unsigned int height);
 
 private:
-    unsigned char** m_data;
+    unsigned char* m_data;
     unsigned int m_width;
     unsigned int m_height;
 }; 
